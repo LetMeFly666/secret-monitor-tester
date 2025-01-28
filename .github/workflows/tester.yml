@@ -1,0 +1,21 @@
+name: 'Test action'
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: run the action
+        uses: LetMeFly666/secret-monitor@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          LETSECRET_SECRETS: ${{ secrets.LETSECRET_TEST_VALUEIS1TO9 }}  # 其实是1到9（123...9）
